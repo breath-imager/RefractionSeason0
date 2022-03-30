@@ -75,7 +75,7 @@ export default class MintWidget extends React.Component<Props, State> {
 
           <>
          
-          <img className="btn__primary" src="/build/images/btn.png" onClick={() => this.mint()} />
+          <img className="btn__primary" src="/build/images/btn_nft.png" onClick={() => this.mint()} />
 
        
         </>

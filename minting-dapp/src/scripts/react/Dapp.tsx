@@ -211,7 +211,7 @@ export default class Dapp extends React.Component<Props, State> {
                 <div className="div-block-42">
                   <h1 className="h5-med raygun">REFRACTION</h1>
                 </div>
-                <h2 className="h2-light">Season 0 Lanyard</h2>
+                <h2 className="h2-light">Season 0 NFT</h2>
                 <p className="p">Containing art from 7 of our Founding Artists, Ellie Pritts, Yoshi Sodeoka, Claire Silver, Setta Studio, Linda Dounia, p1xelfool, and Cibelle Cavalli Bastos, the Season 0 Lanyard is the key to accessing the world of Refraction. This grants the holder entry to the community, IRL and metaverse events, custom experiences, our alpha content platform, greenlist for upcoming drops, and a host of future utilities as Refraction continues to expand.</p>
               </div>
               <div className="wrap-horizontal">
