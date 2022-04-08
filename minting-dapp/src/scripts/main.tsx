@@ -1,7 +1,8 @@
 import '../styles/main.scss';
 
 import ReactDOM from 'react-dom';
-import Dapp from './react/Dapp';
+// import Dapp from './react/Dapp';
+import DappEOS from './react/DappEOS';
 import CollectionConfig from '../../../smart-contract/config/CollectionConfig';
 
 if (document.title === '') {
@@ -9,5 +10,6 @@ if (document.title === '') {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  ReactDOM.render(<Dapp />, document.getElementById('minting-dapp'));
+  //ReactDOM.render(<Dapp />, document.getElementById('minting-dapp'));
+  ReactDOM.render(<DappEOS />, document.getElementById('minting-dapp'));
 });

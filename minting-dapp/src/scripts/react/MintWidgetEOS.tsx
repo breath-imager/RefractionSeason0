@@ -1,6 +1,9 @@
 import { utils, BigNumber } from 'ethers';
 import React from 'react';
 
+
+let claimingNFT = false;
+
 interface Props {
   maxSupply: number,
   totalSupply: number,
@@ -9,9 +12,10 @@ interface Props {
   isPaused: boolean,
   isWhitelistMintEnabled: boolean,
   isUserInWhitelist: boolean,
-  mintTokens(mintAmount: number): Promise<void>,
-  whitelistMintTokens(mintAmount: number): Promise<void>,
+  mintTokens(mintAmount: number): Promise<boolean>,
+  whitelistMintTokens(mintAmount: number): Promise<boolean>,
 }
+
 
 interface State {
   mintAmount: number;
@@ -21,12 +25,15 @@ const defaultState: State = {
   mintAmount: 1,
 };
 
-export default class MintWidget extends React.Component<Props, State> {
+export default class MintWidgetEOS extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
     this.state = defaultState;
   }
+
+
+  
 
   private canMint(): boolean {
     return !this.props.isPaused || this.canWhitelistMint();
@@ -48,40 +55,34 @@ export default class MintWidget extends React.Component<Props, State> {
     });
   }
 
-  private async mint(): Promise<void> {
+  private async mint(): Promise<boolean> {
     if (!this.props.isPaused) {
-      await this.props.mintTokens(this.state.mintAmount);
 
-      return;
+      let result = await this.props.mintTokens(this.state.mintAmount);
+
+      return result;
     }
+  
 
-    await this.props.whitelistMintTokens(this.state.mintAmount);
+    let result = this.props.whitelistMintTokens(this.state.mintAmount);
+    return result;
   }
 
   render() {
     return (
       <>
         {this.canMint() ?
-          <div className="mint-widget font-haas">
-           
-           
-            <div className="price">
-              <strong>Price:</strong> {utils.formatEther(this.props.tokenPrice.mul(this.state.mintAmount))} ETH
-            </div>
 
-            <div className="controls">
-              
-            
-              <button className = "primary" onClick={() => this.mint()}>Mint</button>
-            </div>
-          </div>
+          <>
+         
+          <img className="btn__primary" src="/build/images/btn_nft.png" onClick={() => this.mint()} />
 
-
+       
+        </>
           :
-          <div className="cannot-mint">
-            {this.props.isWhitelistMintEnabled ? <>You are not included in the <strong>greenlist</strong>.</> : <>The contract is <strong>paused</strong>.</>}<br />
-            Please come back during the next sale!
-          </div>
+          <div className="mint-detail__wrapper"><p className="p nospace">
+            {this.props.isWhitelistMintEnabled ? <>You are not included in the <strong>greenlist</strong>.</> : <> Minting <strong>closed</strong> for Season 0. <br/><br/>Come back for Season 1!</>}<br />
+          </p></div>
         }
       </>
     );
